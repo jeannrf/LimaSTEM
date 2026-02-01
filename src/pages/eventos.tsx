@@ -25,7 +25,7 @@ export default function EventosLanding() {
             </p>
             <div className="flex gap-4">
               <Link href="/register" className="px-8 py-4 rounded-xl bg-[#7b2cbf] hover:bg-[#9d4edd] text-white font-bold tracking-wide transition-all hover:scale-105 shadow-lg shadow-[#9d4edd]/20">
-                Crear Cuenta Gratis
+                Descubrir Eventos
               </Link>
             </div>
           </div>

@@ -35,7 +35,7 @@ export default function Login() {
             </Link>
 
             <div className="text-center space-y-2">
-              <h1 className="text-3xl font-bold tracking-tight">
+              <h1 className="text-3xl font-medium tracking-tight">
                 Bienvenido <span className="text-linear">de nuevo</span>
               </h1>
               <p className="text-gray-400 text-sm">

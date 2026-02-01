@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
     Calendar,
@@ -62,13 +63,13 @@ export default function Home() {
                         </p>
 
                         <div className="flex flex-wrap justify-center lg:justify-start gap-5">
-                            <button className="h-14 px-10 rounded-full bg-[#7b2cbf] text-white text-sm font-bold hover:bg-[#9d4edd] shadow-2xl shadow-[#9d4edd]/40 transition-all flex items-center gap-3 group">
-                                Explorar Eventos
+                            <Link href="/register" className="h-14 px-10 rounded-full bg-[#7b2cbf] text-white text-sm font-bold hover:bg-[#9d4edd] shadow-2xl shadow-[#9d4edd]/40 transition-all flex items-center gap-3 group">
+                                Empezar ya
                                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                            </button>
-                            <button className="h-14 px-10 rounded-full border border-[#9d4edd]/30 text-[#c77dff] text-sm font-bold bg-[#9d4edd]/5 hover:bg-[#9d4edd]/10 backdrop-blur-md transition-all">
-                                Mejora Personal
-                            </button>
+                            </Link>
+                            <Link href="/ayuda" className="h-14 px-10 rounded-full border border-[#9d4edd]/30 text-[#c77dff] text-sm font-bold bg-[#9d4edd]/5 hover:bg-[#9d4edd]/10 backdrop-blur-md transition-all flex items-center justify-center">
+                                Cómo funciona
+                            </Link>
                         </div>
                     </motion.div>
 

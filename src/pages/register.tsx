@@ -35,7 +35,7 @@ export default function Register() {
             </Link>
 
             <div className="text-center space-y-2">
-              <h1 className="text-3xl font-bold tracking-tight">
+              <h1 className="text-3xl font-medium tracking-tight">
                 Únete a <span className="text-linear">LimaSTEM</span>
               </h1>
               <p className="text-gray-400 text-sm">
