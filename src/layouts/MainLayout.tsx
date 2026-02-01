@@ -54,8 +54,8 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
             </div>
           </div>
 
-          {/* LINKS (Centered) - Desktop Only */}
-          <div className="hidden md:flex items-center absolute left-1/2 -translate-x-1/2 gap-10">
+          {/* BANKS (Centered) - Desktop Only */}
+          <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2 gap-10">
             {navLinks.map((link) => (
               <a
                 key={link.name}
@@ -68,7 +68,7 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
           </div>
 
           {/* ACTIONS (Right) */}
-          <div className="hidden md:flex items-center gap-4 z-10">
+          <div className="hidden lg:flex items-center gap-4 z-10">
             <Link href="/login" className="text-[11px] font-bold text-slate-300 hover:text-white px-5 py-2.5 rounded-2xl border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all uppercase tracking-widest leading-none">
               Ingresar
             </Link>
@@ -79,7 +79,7 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
 
           {/* MOBILE TOGGLE */}
           <button
-            className="md:hidden w-10 h-10 flex items-center justify-center bg-white/5 rounded-xl border border-white/10 z-10"
+            className="lg:hidden w-10 h-10 flex items-center justify-center bg-white/5 rounded-xl border border-white/10 z-10"
             onClick={() => setIsOpen(!isOpen)}
           >
             {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -88,7 +88,7 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
 
         {/* MOBILE MENU */}
         {isOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-[#0b011d]/98 backdrop-blur-3xl border-b border-white/10 p-8 flex flex-col gap-6 shadow-2xl animate-in slide-in-from-top-4 duration-300">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-[#0b011d]/98 backdrop-blur-3xl border-b border-white/10 p-8 flex flex-col gap-6 shadow-2xl animate-in slide-in-from-top-4 duration-300">
             <div className="flex flex-col gap-4 text-center">
               {navLinks.map((link) => (
                 <a

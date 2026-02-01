@@ -161,7 +161,7 @@ export default function Home() {
             <section className="py-40 bg-midnight relative overflow-hidden">
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full purple-atmosphere opacity-50" />
                 <div className="container mx-auto px-8 max-w-6xl relative z-10">
-                    <div className="mb-24 lg:max-w-2xl">
+                    <div className="mb-24 max-w-3xl mx-auto text-center">
                         <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-8 text-linear leading-tight">Increíble experiencia diseñada para ti.</h2>
                         <p className="text-lg text-slate-300 font-medium tracking-tight">
                             No somos una red social más. Somos el motor que impulsa el descubrimiento de cada workshop y taller en la capital.
