@@ -46,7 +46,7 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
 
           {/* LOGO (Left) */}
           <div className="flex items-center z-10">
-            <div className="text-xl font-extrabold tracking-tighter text-white cursor-pointer flex items-center gap-2.5 group">
+            <div className="text-xl font-bold tracking-tighter text-white cursor-pointer flex items-center gap-2.5 group">
               <div className="w-9 h-9 bg-[#7b2cbf] rounded-xl flex items-center justify-center shadow-lg shadow-[#9d4edd]/20 group-hover:scale-110 transition-transform">
                 <div className="w-4 h-4 border-2 border-white rounded-md" />
               </div>
@@ -60,7 +60,7 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
               <a
                 key={link.name}
                 href={link.href}
-                className="text-[12px] font-bold text-slate-400 hover:text-[#c77dff] transition-all uppercase tracking-widest"
+                className="text-[12px] font-semibold text-slate-400 hover:text-[#c77dff] transition-all uppercase tracking-widest"
               >
                 {link.name}
               </a>
@@ -69,10 +69,10 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
 
           {/* ACTIONS (Right) */}
           <div className="hidden lg:flex items-center gap-4 z-10">
-            <Link href="/login" className="text-[11px] font-bold text-slate-300 hover:text-white px-5 py-2.5 rounded-2xl border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all uppercase tracking-widest leading-none">
+            <Link href="/login" className="text-[11px] font-semibold text-slate-300 hover:text-white px-5 py-2.5 rounded-2xl border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all uppercase tracking-widest leading-none">
               Ingresar
             </Link>
-            <Link href="/register" className="text-[11px] font-bold text-white bg-[#7b2cbf] hover:bg-[#9d4edd] px-6 py-3 rounded-2xl shadow-xl shadow-[#9d4edd]/20 transition-all hover:scale-105 active:scale-95 uppercase tracking-widest leading-none">
+            <Link href="/register" className="text-[11px] font-semibold text-white bg-[#7b2cbf] hover:bg-[#9d4edd] px-6 py-3 rounded-2xl shadow-xl shadow-[#9d4edd]/20 transition-all hover:scale-105 active:scale-95 uppercase tracking-widest leading-none">
               Registrarme
             </Link>
           </div>
@@ -94,7 +94,7 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-2xl font-bold text-white hover:text-[#9d4edd] transition-colors"
+                  className="text-2xl font-semibold text-white hover:text-[#9d4edd] transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.name}
@@ -103,10 +103,10 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
             </div>
             <div className="h-px bg-white/10 w-full my-2" />
             <div className="flex flex-col gap-4">
-              <Link href="/login" onClick={() => setIsOpen(false)} className="h-14 flex items-center justify-center rounded-2xl border border-white/10 font-bold uppercase tracking-widest text-sm text-white">
+              <Link href="/login" onClick={() => setIsOpen(false)} className="h-14 flex items-center justify-center rounded-2xl border border-white/10 font-semibold uppercase tracking-widest text-sm text-white">
                 Ingresar
               </Link>
-              <Link href="/register" onClick={() => setIsOpen(false)} className="h-14 flex items-center justify-center rounded-2xl bg-[#7b2cbf] font-bold shadow-lg shadow-[#9d4edd]/20 uppercase tracking-widest text-sm text-white">
+              <Link href="/register" onClick={() => setIsOpen(false)} className="h-14 flex items-center justify-center rounded-2xl bg-[#7b2cbf] font-semibold shadow-lg shadow-[#9d4edd]/20 uppercase tracking-widest text-sm text-white">
                 Registrarme
               </Link>
             </div>
