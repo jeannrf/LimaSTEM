@@ -9,6 +9,8 @@ import {
     Sparkles,
     Clock,
     Zap,
+    Users,
+    MessageCircle,
 } from "lucide-react";
 import Layout from "@/layouts/MainLayout";
 
@@ -190,6 +192,59 @@ export default function Home() {
                     </div>
                 </div>
             </section>
-        </Layout>
+
+            {/* COMMUNITY SECTION */}
+            <section id="comunidad" className="py-24 relative z-10 border-t border-white/5">
+                <div className="container mx-auto px-8 max-w-6xl">
+                    <div className="text-center mb-16 max-w-3xl mx-auto">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[#9d4edd]/30 bg-[#9d4edd]/10 backdrop-blur-md text-[10px] font-bold text-[#c77dff] uppercase tracking-widest mb-6">
+                            <span className="w-2 h-2 rounded-full bg-[#9d4edd] animate-pulse"></span>
+                            Networking Activo
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-medium text-white mb-6 tracking-tight">
+                            Una comunidad que <span className="text-linear">impulsa tu crecimiento</span>
+                        </h2>
+                        <p className="text-lg text-slate-300 font-medium">
+                            No estás solo en este camino. Únete a miles de estudiantes apasionados por la tecnología y la ciencia.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        {/* Card 1 */}
+                        <div className="premium-card p-8 group border border-white/5 hover:border-blue-500/30 transition-colors">
+                            <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20 mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-blue-500/10">
+                                <Users size={24} />
+                            </div>
+                            <h3 className="text-xl font-semibold text-white mb-3">Networking Global</h3>
+                            <p className="text-slate-400 text-sm leading-relaxed font-medium">
+                                Conecta con pares de la UNI, UTEC, PUCP y San Marcos. Rompe la burbuja universitaria.
+                            </p>
+                        </div>
+
+                        {/* Card 2 */}
+                        <div className="premium-card p-8 group border border-white/5 hover:border-green-500/30 transition-colors">
+                            <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center text-green-400 border border-green-500/20 mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-green-500/10">
+                                <MessageCircle size={24} />
+                            </div>
+                            <h3 className="text-xl font-semibold text-white mb-3">Canales de Ayuda</h3>
+                            <p className="text-slate-400 text-sm leading-relaxed font-medium">
+                                Resuelve tus dudas de cálculo, física o programación con ayuda de la comunidad en tiempo real.
+                            </p>
+                        </div>
+
+                        {/* Card 3 */}
+                        <div className="premium-card p-8 group border border-white/5 hover:border-pink-500/30 transition-colors">
+                            <div className="w-12 h-12 rounded-xl bg-pink-500/10 flex items-center justify-center text-pink-400 border border-pink-500/20 mb-6 group-hover:scale-110 transition-transform shadow-lg shadow-pink-500/10">
+                                <Zap size={24} />
+                            </div>
+                            <h3 className="text-xl font-semibold text-white mb-3">Proyectos Colaborativos</h3>
+                            <p className="text-slate-400 text-sm leading-relaxed font-medium">
+                                Encuentra equipo para tu próxima hackathon o proyecto de investigación.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </Layout >
     );
 }
