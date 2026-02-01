@@ -21,10 +21,10 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
   }, []);
 
   const navLinks = [
-    { name: 'Explorar', href: '#' },
-    { name: 'Comunidad', href: '#' },
-    { name: 'Agenda', href: '#' },
-    { name: 'Mejora', href: '#' },
+    { name: 'Explorar', href: '/' },
+    { name: 'Comunidad', href: '/#comunidad' },
+    { name: 'Agenda', href: '/#agenda' },
+    { name: 'Mejora', href: '/#mejora' },
   ];
 
   return (

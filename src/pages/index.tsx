@@ -171,7 +171,7 @@ export default function Home() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-                        <div className="premium-card p-12 group hover:-translate-y-2 transition-transform duration-500 border-[#9d4edd]/20">
+                        <div id="agenda" className="premium-card p-12 group hover:-translate-y-2 transition-transform duration-500 border-[#9d4edd]/20 scroll-mt-32">
                             <div className="w-16 h-16 rounded-2xl bg-[#7b2cbf]/30 flex items-center justify-center text-[#9d4edd] border border-[#9d4edd]/30 mb-10 group-hover:scale-110 transition-transform shadow-lg shadow-[#9d4edd]/20">
                                 <Calendar size={32} />
                             </div>
@@ -180,7 +180,7 @@ export default function Home() {
                                 Recopilamos eventos de universidades, institutos y centros tecnológicos de todo Lima en un formato impecable y fácil de navegar.
                             </p>
                         </div>
-                        <div className="premium-card p-12 group hover:-translate-y-2 transition-transform duration-500 border-[#9d4edd]/20">
+                        <div id="mejora" className="premium-card p-12 group hover:-translate-y-2 transition-transform duration-500 border-[#9d4edd]/20 scroll-mt-32">
                             <div className="w-16 h-16 rounded-2xl bg-[#9d4edd]/20 flex items-center justify-center text-[#9d4edd] border border-[#9d4edd]/30 mb-10 group-hover:scale-110 transition-transform shadow-lg shadow-[#9d4edd]/20">
                                 <Target size={32} />
                             </div>
