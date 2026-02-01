@@ -21,10 +21,10 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
   }, []);
 
   const navLinks = [
-    { name: 'Explorar', href: '/' },
-    { name: 'Comunidad', href: '/#comunidad' },
-    { name: 'Agenda', href: '/#agenda' },
-    { name: 'Mejora', href: '/#mejora' },
+    { name: 'Eventos', href: '/eventos' },
+    { name: 'Becas', href: '/becas' },
+    { name: 'Hackathones', href: '/hackathones' },
+    { name: 'Comunidad', href: '/comunidad' },
   ];
 
   return (
@@ -46,12 +46,12 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
 
           {/* LOGO (Left) */}
           <div className="flex items-center z-10">
-            <div className="text-xl font-bold tracking-tighter text-white cursor-pointer flex items-center gap-2.5 group">
+            <Link href="/" className="text-xl font-bold tracking-tighter text-white cursor-pointer flex items-center gap-2.5 group">
               <div className="w-9 h-9 bg-[#7b2cbf] rounded-xl flex items-center justify-center shadow-lg shadow-[#9d4edd]/20 group-hover:scale-110 transition-transform">
                 <div className="w-4 h-4 border-2 border-white rounded-md" />
               </div>
               <span className="tracking-tight hidden sm:block">LimaSTEM</span>
-            </div>
+            </Link>
           </div>
 
           {/* BANKS (Centered) - Desktop Only */}
