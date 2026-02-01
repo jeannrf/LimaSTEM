@@ -1,5 +1,6 @@
 import React, { ReactNode, useState, useEffect } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 import { Menu, X } from 'lucide-react';
 
 interface LayoutProps {
@@ -37,8 +38,8 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
       {/* --- TRADITIONAL PREMIUM NAVBAR --- */}
       <nav
         className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b ${scrolled
-            ? 'bg-[#0b011d]/90 backdrop-blur-xl border-white/10 py-4 shadow-2xl'
-            : 'bg-[#0b011d]/60 backdrop-blur-md border-white/5 py-6'
+          ? 'bg-[#0b011d]/90 backdrop-blur-xl border-white/10 py-4 shadow-2xl'
+          : 'bg-[#0b011d]/60 backdrop-blur-md border-white/5 py-6'
           }`}
       >
         <div className="container mx-auto px-8 max-w-7xl flex items-center justify-between relative">
@@ -68,12 +69,12 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
 
           {/* ACTIONS (Right) */}
           <div className="hidden md:flex items-center gap-4 z-10">
-            <button className="text-[11px] font-bold text-slate-300 hover:text-white px-5 py-2.5 rounded-2xl border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all uppercase tracking-widest leading-none">
+            <Link href="/login" className="text-[11px] font-bold text-slate-300 hover:text-white px-5 py-2.5 rounded-2xl border border-white/10 hover:border-white/20 hover:bg-white/5 transition-all uppercase tracking-widest leading-none">
               Ingresar
-            </button>
-            <button className="text-[11px] font-bold text-white bg-[#7b2cbf] hover:bg-[#9d4edd] px-6 py-3 rounded-2xl shadow-xl shadow-[#9d4edd]/20 transition-all hover:scale-105 active:scale-95 uppercase tracking-widest leading-none">
+            </Link>
+            <Link href="/register" className="text-[11px] font-bold text-white bg-[#7b2cbf] hover:bg-[#9d4edd] px-6 py-3 rounded-2xl shadow-xl shadow-[#9d4edd]/20 transition-all hover:scale-105 active:scale-95 uppercase tracking-widest leading-none">
               Registrarme
-            </button>
+            </Link>
           </div>
 
           {/* MOBILE TOGGLE */}
@@ -102,8 +103,12 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
             </div>
             <div className="h-px bg-white/10 w-full my-2" />
             <div className="flex flex-col gap-4">
-              <button className="h-14 rounded-2xl border border-white/10 font-bold uppercase tracking-widest text-sm">Ingresar</button>
-              <button className="h-14 rounded-2xl bg-[#7b2cbf] font-bold shadow-lg shadow-[#9d4edd]/20 uppercase tracking-widest text-sm">Registrarme</button>
+              <Link href="/login" onClick={() => setIsOpen(false)} className="h-14 flex items-center justify-center rounded-2xl border border-white/10 font-bold uppercase tracking-widest text-sm text-white">
+                Ingresar
+              </Link>
+              <Link href="/register" onClick={() => setIsOpen(false)} className="h-14 flex items-center justify-center rounded-2xl bg-[#7b2cbf] font-bold shadow-lg shadow-[#9d4edd]/20 uppercase tracking-widest text-sm text-white">
+                Registrarme
+              </Link>
             </div>
           </div>
         )}
