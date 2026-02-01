@@ -17,13 +17,14 @@
   }
 
   .premium-card {
-    @apply relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] transition-all duration-500 backdrop-blur-xl;
+    @apply relative overflow-hidden rounded-3xl border border-white/5 bg-gradient-to-br from-white/[0.05] to-transparent transition-all duration-500 backdrop-blur-2xl;
   }
 
   .premium-card:hover {
-    border-color: rgba(157, 78, 221, 0.5);
-    background-color: rgba(157, 78, 221, 0.08);
-    box-shadow: 0 0 60px -15px rgba(157, 78, 221, 0.6);
+    border-color: rgba(157, 78, 221, 0.3);
+    background-color: rgba(157, 78, 221, 0.05);
+    box-shadow: 0 0 80px -20px rgba(157, 78, 221, 0.5);
+    transform: translateY(-2px);
   }
 
   /* Purple tinted gradient text */

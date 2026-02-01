@@ -50,7 +50,7 @@ export default function Home() {
                             Tu agenda definitiva en Lima
                         </div>
 
-                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8 text-linear leading-[1.2] lg:max-w-lg">
+                        <h1 className="text-5xl md:text-6xl lg:text-7xl font-medium text-white mb-8 text-linear leading-[1.2] lg:max-w-lg">
                             Potencia <br /> tu futuro con <br /> LimaSTEM
                         </h1>
 
@@ -87,7 +87,7 @@ export default function Home() {
                                     <div className="w-8 h-8 rounded-xl bg-[#9d4edd]/20 flex items-center justify-center border border-[#9d4edd]/40">
                                         <Calendar className="text-[#9d4edd]" size={16} />
                                     </div>
-                                    <span className="text-sm font-extrabold text-white tracking-tight">Eventos de Hoy</span>
+                                    <span className="text-sm font-semibold text-white tracking-tight">Eventos de Hoy</span>
                                 </div>
                                 <div className="flex items-center gap-2 px-3 py-1 bg-[#9d4edd]/10 rounded-full border border-[#9d4edd]/20">
                                     <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
@@ -128,7 +128,7 @@ export default function Home() {
 
                             <div className="premium-card p-5 border-[#9d4edd]/20 flex flex-col justify-center text-center">
                                 <div className="text-[10px] font-bold text-[#c77dff] uppercase tracking-widest mb-2 leading-none">Impacto en Lima</div>
-                                <div className="text-3xl font-black text-white tracking-tighter">4.2k</div>
+                                <div className="text-3xl font-semibold text-white tracking-tighter">4.2k</div>
                                 <div className="text-[9px] font-bold text-[#c77dff] uppercase tracking-widest mt-1 leading-none">Estudiantes</div>
                             </div>
                         </div>
@@ -146,7 +146,7 @@ export default function Home() {
                             { label: "Asistentes", value: "4,200" },
                         ].map((stat, i) => (
                             <div key={i} className="flex flex-col gap-2">
-                                <div className="text-5xl font-black text-white tracking-tighter text-linear">
+                                <div className="text-5xl font-semibold text-white tracking-tighter text-linear">
                                     {stat.value}
                                 </div>
                                 <div className="text-[11px] font-bold text-[#c77dff] uppercase tracking-[0.2em] leading-none">
@@ -162,7 +162,7 @@ export default function Home() {
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full purple-atmosphere opacity-50" />
                 <div className="container mx-auto px-8 max-w-6xl relative z-10">
                     <div className="mb-24 max-w-3xl mx-auto text-center">
-                        <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-8 text-linear leading-tight">Increíble experiencia diseñada para ti.</h2>
+                        <h2 className="text-4xl md:text-6xl font-medium tracking-tight text-white mb-8 text-linear leading-tight">Increíble experiencia diseñada para ti.</h2>
                         <p className="text-lg text-slate-300 font-medium tracking-tight">
                             No somos una red social más. Somos el motor que impulsa el descubrimiento de cada workshop y taller en la capital.
                         </p>
@@ -173,7 +173,7 @@ export default function Home() {
                             <div className="w-16 h-16 rounded-2xl bg-[#7b2cbf]/30 flex items-center justify-center text-[#9d4edd] border border-[#9d4edd]/30 mb-10 group-hover:scale-110 transition-transform shadow-lg shadow-[#9d4edd]/20">
                                 <Calendar size={32} />
                             </div>
-                            <h3 className="text-3xl font-extrabold text-white mb-6 tracking-tight">Agenda Integrada</h3>
+                            <h3 className="text-3xl font-semibold text-white mb-6 tracking-tight">Agenda Integrada</h3>
                             <p className="text-slate-400 leading-relaxed text-lg">
                                 Recopilamos eventos de universidades, institutos y centros tecnológicos de todo Lima en un formato impecable y fácil de navegar.
                             </p>
@@ -182,7 +182,7 @@ export default function Home() {
                             <div className="w-16 h-16 rounded-2xl bg-[#9d4edd]/20 flex items-center justify-center text-[#9d4edd] border border-[#9d4edd]/30 mb-10 group-hover:scale-110 transition-transform shadow-lg shadow-[#9d4edd]/20">
                                 <Target size={32} />
                             </div>
-                            <h3 className="text-3xl font-extrabold text-white mb-6 tracking-tight">Mejora Personal</h3>
+                            <h3 className="text-3xl font-semibold text-white mb-6 tracking-tight">Mejora Personal</h3>
                             <p className="text-slate-400 leading-relaxed text-lg">
                                 Accede a talleres enfocados en liderazgo, productividad y habilidades blandas específicamente para perfiles STEM.
                             </p>

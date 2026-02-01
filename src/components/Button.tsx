@@ -14,11 +14,11 @@ export const Button = ({
 }: ButtonProps) => {
   const variants = {
     primary:
-      "bg-primary-600 text-white hover:bg-primary-700 shadow-lg shadow-primary-500/20",
+      "bg-gradient-to-r from-[#7b2cbf] to-[#9d4edd] text-white hover:opacity-90 shadow-lg shadow-[#9d4edd]/25 border border-white/10 hover:shadow-[0_0_25px_rgba(157,78,221,0.4)]",
     secondary:
-      "bg-accent-600 text-white hover:bg-accent-700 shadow-lg shadow-accent-500/20",
-    glass: "glass text-white hover:bg-white/10",
-    outline: "border border-white/20 text-white hover:bg-white/5",
+      "bg-white text-[#0b011d] hover:bg-gray-100 shadow-lg shadow-white/10 font-bold",
+    glass: "glass text-white hover:bg-white/10 border border-white/5",
+    outline: "border border-white/10 text-white hover:bg-white/5 hover:border-white/20",
   };
 
   const sizes = {
