@@ -9,7 +9,7 @@ const config: Config = {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["var(--font-poppins)", "Inter", "sans-serif"],
+                sans: ["var(--font-poppins)", "var(--font-inter)", "sans-serif"],
             },
             colors: {
                 midnight: "#0b011d", // A more visible deep purple
