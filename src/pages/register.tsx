@@ -1,11 +1,61 @@
+import { useState } from 'react';
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from 'next/router';
+import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
-import { Mail, Lock, User, ArrowLeft, Github } from "lucide-react";
+import { Mail, Lock, User, ArrowLeft, Github, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Register() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [form, setForm] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    if (form.password !== form.confirmPassword) {
+      setError("Las contraseñas no coinciden");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email: form.email,
+        password: form.password,
+        options: {
+          data: {
+            full_name: form.fullName,
+          },
+        },
+      });
+
+      if (signUpError) throw signUpError;
+
+      // Successful registration
+      router.push('/login?registered=true');
+    } catch (err: any) {
+      setError(err.message || "Ocurrió un error al registrarse");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -50,38 +100,64 @@ export default function Register() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="premium-card p-8 shadow-2xl shadow-black/50"
           >
-            <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-4" onSubmit={handleRegister}>
+              {error && (
+                <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-sm p-3 rounded-xl text-center">
+                  {error}
+                </div>
+              )}
+
               <Input
                 label="Nombre Completo"
+                name="fullName"
                 type="text"
                 placeholder="Juan Pérez"
                 icon={User}
+                value={form.fullName}
+                onChange={handleChange}
+                required
               />
 
               <Input
                 label="Correo Electrónico"
+                name="email"
                 type="email"
                 placeholder="ejemplo@correo.com"
                 icon={Mail}
+                value={form.email}
+                onChange={handleChange}
+                required
               />
 
               <Input
                 label="Contraseña"
+                name="password"
                 type="password"
                 placeholder="••••••••"
                 icon={Lock}
+                value={form.password}
+                onChange={handleChange}
+                required
               />
 
               <Input
                 label="Confirmar Contraseña"
+                name="confirmPassword"
                 type="password"
                 placeholder="••••••••"
                 icon={Lock}
+                value={form.confirmPassword}
+                onChange={handleChange}
+                required
               />
 
               <div className="pt-2">
-                <Button className="w-full" size="lg">
-                  Crear Cuenta
+                <Button className="w-full" size="lg" disabled={loading}>
+                  {loading ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    "Crear Cuenta"
+                  )}
                 </Button>
               </div>
 

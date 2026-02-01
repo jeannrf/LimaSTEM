@@ -1,11 +1,55 @@
+import { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
-import { Mail, Lock, ArrowLeft, Github } from "lucide-react";
+import { Mail, Lock, ArrowLeft, Github, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Login() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+
+  useEffect(() => {
+    if (router.query.registered) {
+      setSuccessMessage("¡Cuenta creada exitosamente! Por favor inicia sesión.");
+    }
+  }, [router.query]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
+    try {
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({
+        email: form.email,
+        password: form.password,
+      });
+
+      if (signInError) throw signInError;
+
+      // Successful login
+      router.push("/eventos");
+    } catch (err: any) {
+      setError(err.message || "Error al iniciar sesión. Verifica tus credenciales.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <Head>
@@ -50,20 +94,39 @@ export default function Login() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="premium-card p-8 shadow-2xl shadow-black/50"
           >
-            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-5" onSubmit={handleLogin}>
+              {successMessage && (
+                <div className="bg-green-500/10 border border-green-500/20 text-green-500 text-sm p-3 rounded-xl text-center mb-4">
+                  {successMessage}
+                </div>
+              )}
+              {error && (
+                <div className="bg-red-500/10 border border-red-500/20 text-red-500 text-sm p-3 rounded-xl text-center mb-4">
+                  {error}
+                </div>
+              )}
+
               <Input
                 label="Correo Electrónico"
+                name="email"
                 type="email"
                 placeholder="ejemplo@correo.com"
                 icon={Mail}
+                value={form.email}
+                onChange={handleChange}
+                required
               />
 
               <div className="space-y-1">
                 <Input
                   label="Contraseña"
+                  name="password"
                   type="password"
                   placeholder="••••••••"
                   icon={Lock}
+                  value={form.password}
+                  onChange={handleChange}
+                  required
                 />
                 <div className="flex justify-end">
                   <Link
@@ -75,8 +138,8 @@ export default function Login() {
                 </div>
               </div>
 
-              <Button className="w-full" size="lg">
-                Iniciar Sesión
+              <Button className="w-full" size="lg" disabled={loading}>
+                {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : "Iniciar Sesión"}
               </Button>
 
               <div className="relative my-6">
