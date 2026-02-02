@@ -4,8 +4,6 @@ https://lima-stem.vercel.app/
 
 **LimaSTEM** es una plataforma web diseñada para centralizar y democratizar el acceso a oportunidades en Ciencia, Tecnología, Ingeniería y Matemáticas (STEM) para estudiantes y jóvenes profesionales en Perú.
 
-![LimaSTEM Banner](public/logo.png) *Añadir captura o logo aquí*
-
 ## ✨ Características Principales
 
 *   **🏆 Eventos y Concursos:** Listado actualizado de Hackathones, Datathones y competencias tecnológicas.
