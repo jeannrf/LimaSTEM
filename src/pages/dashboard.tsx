@@ -29,7 +29,7 @@ export default function Dashboard() {
 
   return (
     <MainLayout title="Panel Principal | LimaSTEM">
-      <div className="min-h-screen pt-4 md:pt-32 pb-20 px-6 relative overflow-hidden">
+      <div className="pt-4 md:pt-32 pb-8 px-6 relative overflow-hidden">
         {/* Atmosphere */}
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#7b2cbf] opacity-5 blur-[150px] rounded-full -z-10" />
 

@@ -36,7 +36,7 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0b011d] selection:bg-[#9d4edd]/30 font-sans text-white overflow-x-hidden">
+    <div className="flex flex-col min-h-screen bg-[#0b011d] selection:bg-[#9d4edd]/30 font-sans text-white overflow-x-hidden">
       <Head>
         <title>{title}</title>
         <meta charSet="utf-8" />
@@ -243,9 +243,11 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
         )}
       </AnimatePresence>
 
-      <main className={user ? "pt-2 lg:pt-0" : "pt-20 lg:pt-0"}>{children}</main>
+      <main className={`flex-grow ${user ? "pt-2 lg:pt-0" : "pt-20 lg:pt-0"}`}>
+        {children}
+      </main>
 
-      <footer className="mt-40 border-t border-white/5 py-24 bg-[#0b011d]">
+      <footer className="mt-12 border-t border-white/5 py-16 bg-[#0b011d]">
         <div className="container mx-auto px-8 grid grid-cols-2 lg:grid-cols-4 gap-16 max-w-6xl">
           <div className="col-span-2 lg:col-span-1">
             <div className="text-lg font-extrabold text-white mb-8 tracking-tighter">LimaSTEM</div>
