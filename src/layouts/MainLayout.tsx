@@ -49,7 +49,7 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
 
           {/* LOGO (Left) */}
           <div className="flex items-center z-10">
-            <Link href="/" className="text-xl font-bold tracking-tighter text-white cursor-pointer flex items-center gap-3 group">
+            <Link href={user ? "/dashboard" : "/"} className="text-xl font-bold tracking-tighter text-white cursor-pointer flex items-center gap-3 group">
               <div className="relative w-10 h-10 bg-gradient-to-br from-[#7b2cbf] to-[#9d4edd] rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20 group-hover:shadow-purple-500/40 group-hover:scale-105 transition-all duration-300">
                 <Atom size={20} className="text-white group-hover:rotate-180 transition-transform duration-700 ease-out" />
                 <div className="absolute inset-0 bg-white/20 rounded-xl blur opacity-0 group-hover:opacity-100 transition-opacity" />

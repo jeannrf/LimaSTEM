@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useAuth } from "@/context/AuthContext";
 import { motion } from "framer-motion";
 import {
     Calendar,
@@ -28,7 +30,21 @@ const EventCard = ({ title, date, loc }: { title: string; date: string; loc: str
     </div>
 );
 
+// EventCard and exports...
+
 export default function Home() {
+    const { user, loading } = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!loading && user) {
+            router.replace("/dashboard");
+        }
+    }, [user, loading, router]);
+
+    // Optional: Show nothing or a loading spinner while redirecting
+    if (loading || user) return null;
+
     return (
         <Layout title="Potencia tu futuro con LimaSTEM">
             {/* Intense IDE Purple Atmosphere */}
