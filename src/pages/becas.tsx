@@ -52,7 +52,7 @@ export default function BecasPage() {
             <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#9d4edd]/30 bg-[#9d4edd]/10 text-[11px] font-bold text-[#c77dff] uppercase tracking-widest mb-6 shadow-lg shadow-[#9d4edd]/10">
               <GraduationCap size={14} /> Oportunidades Académicas
             </span>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-medium text-white mb-4">
               Becas y <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#c77dff] to-white">Financiamiento</span>
             </h1>
             <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">

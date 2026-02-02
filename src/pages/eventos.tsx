@@ -67,7 +67,7 @@ export default function EventosPage() {
         <div className="container mx-auto max-w-7xl">
           {/* Header Section */}
           <div className="text-center mb-16">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-medium text-white mb-4">
               Explora Eventos <span className="text-[#c77dff]">STEM</span>
             </h1>
             <p className="text-slate-400 max-w-2xl mx-auto text-lg">
@@ -94,8 +94,8 @@ export default function EventosPage() {
                   key={cat}
                   onClick={() => setFilter(cat)}
                   className={`h-10 px-6 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${filter === cat
-                      ? 'bg-[#7b2cbf] text-white shadow-lg shadow-[#9d4edd]/20'
-                      : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 border border-white/5'
+                    ? 'bg-[#7b2cbf] text-white shadow-lg shadow-[#9d4edd]/20'
+                    : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 border border-white/5'
                     }`}
                 >
                   {cat}
