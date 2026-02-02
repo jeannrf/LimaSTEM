@@ -9,6 +9,7 @@ interface Profile {
   full_name: string;
   avatar_url: string | null;
   role: string;
+  occupation?: string; // Added occupation
   interests: string[] | null;
 }
 
@@ -119,17 +120,20 @@ export default function ComunidadPage() {
                     <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#c77dff] transition-colors line-clamp-1">
                       {profile.full_name || "Usuario Anónimo"}
                     </h3>
-                    <p className="text-xs font-medium text-[#9d4edd] bg-[#9d4edd]/10 px-3 py-1 rounded-full border border-[#9d4edd]/20 mb-4 uppercase tracking-wider">
-                      {profile.role || 'Estudiante'}
+                    <p className="text-xs font-medium text-[#c77dff] bg-[#c77dff]/10 px-3 py-1 rounded-full border border-[#c77dff]/20 mb-4 uppercase tracking-wider max-w-full truncate">
+                      {profile.occupation || (profile.role === 'student' ? 'Estudiante' : profile.role) || 'Miembro'}
                     </p>
 
-                    {/* Interests Tags (Mocked if null) */}
-                    <div className="flex flex-wrap justify-center gap-2 mb-6 w-full h-12 overflow-hidden">
-                      {(profile.interests || ['Tech', 'Innovation', 'Code']).slice(0, 3).map((tag, i) => (
-                        <span key={i} className="text-[10px] text-slate-400 bg-white/5 px-2 py-1 rounded-md border border-white/5">
+                    {/* Interests Tags */}
+                    <div className="flex flex-wrap justify-center gap-2 mb-6 w-full min-h-[3rem]">
+                      {(profile.interests || []).slice(0, 3).map((tag, i) => (
+                        <span key={i} className="text-[10px] font-medium text-slate-300 bg-white/5 px-2.5 py-1 rounded-md border border-white/10 hover:border-[#9d4edd]/50 transition-colors">
                           {tag}
                         </span>
                       ))}
+                      {(profile.interests?.length || 0) > 3 && (
+                        <span className="text-[10px] text-slate-500 flex items-center">+{(profile.interests?.length || 0) - 3}</span>
+                      )}
                     </div>
 
                     {/* Actions */}
