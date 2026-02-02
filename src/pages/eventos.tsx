@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { useAuth } from '@/context/AuthContext';
 import { LandingEventos } from '@/components/landings/LandingEventos';
-import { Calendar, MapPin, Search, Filter, Loader2, Sparkles, Bell, Ticket } from 'lucide-react';
+import { Calendar, MapPin, Search, Filter, Loader2, Sparkles, Bell, Ticket, ChevronDown, X } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // Types for our Event data
 interface Event {
@@ -18,6 +18,8 @@ interface Event {
   is_featured: boolean;
 }
 
+const INTERESTS = ['Blockchain', 'Ciberseguridad', 'Data Science', 'Diseño UX/UI', 'Inteligencia Artificial', 'Programación', 'Robótica'];
+
 export default function EventosPage() {
   const [events, setEvents] = useState<Event[]>([]);
   // Use auth context for user verification
@@ -25,6 +27,8 @@ export default function EventosPage() {
 
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('Todos');
+  const [isInterestOpen, setIsInterestOpen] = useState(false);
+  const [selectedInterest, setSelectedInterest] = useState<string | null>(null);
 
   useEffect(() => {
     // Fetch events for everyone
@@ -48,9 +52,11 @@ export default function EventosPage() {
     }
   }
 
-  const filteredEvents = filter === 'Todos'
-    ? events
-    : events.filter(e => e.category === filter);
+  const filteredEvents = events.filter(e => {
+    const matchesCategory = filter === 'Todos' || e.category === filter;
+    // const matchesInterest = !selectedInterest || (e.tags && e.tags.includes(selectedInterest));
+    return matchesCategory;
+  });
 
   // Gradient helper for cards
   const getGradient = (index: number) => {
@@ -92,45 +98,98 @@ export default function EventosPage() {
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#7b2cbf] opacity-5 blur-[150px] rounded-full -z-10" />
 
         <div className="container mx-auto max-w-7xl">
-          {/* Header Dashboard */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
+
+          {/* HEADER: Title & Type Filters */}
+          <div className="flex flex-col xl:flex-row justify-between items-start xl:items-end gap-6 mb-8">
             <div>
-              <h1 className="text-4xl md:text-5xl font-medium text-white mb-4">
-                Explora el Calendario <span className="text-[#c77dff]">STEM</span>
+              <h1 className="text-4xl md:text-5xl font-medium text-white mb-3 tracking-tight">
+                Explora el Calendario <span className="text-[#c77dff] font-bold">STEM</span>
               </h1>
-              <p className="text-slate-400 max-w-xl text-lg">
-                Conferencias, talleres y meetups seleccionados para tu crecimiento.
+              <p className="text-slate-400 max-w-2xl text-lg leading-relaxed">
+                Conferencias, talleres y meetups seleccionados para tu crecimiento profesional.
               </p>
             </div>
 
-            {/* User Controls (Search/Filter) */}
-            <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-6 w-full md:w-auto">
-              <div className="relative w-full md:w-96 group">
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-[#9d4edd] transition-colors">
-                  <Search size={20} />
-                </div>
-                <input
-                  type="text"
-                  placeholder="Buscar evento..."
-                  className="w-full h-14 pl-12 pr-5 rounded-2xl bg-white/5 border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#9d4edd]/50 focus:bg-[#0b011d] transition-all"
-                />
-              </div>
-
-              <div className="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-hide">
-                {['Todos', 'Conferencia', 'Taller', 'Meetup', 'Webinar'].map((cat) => (
-                  <button
-                    key={cat}
-                    onClick={() => setFilter(cat)}
-                    className={`h-10 px-6 rounded-xl text-sm font-bold transition-all whitespace-nowrap ${filter === cat
-                      ? 'bg-[#7b2cbf] text-white shadow-lg shadow-[#9d4edd]/20'
-                      : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10 border border-white/5'
-                      }`}
-                  >
-                    {cat}
-                  </button>
-                ))}
-              </div>
+            {/* Type Filters (Moved to Header) */}
+            <div className="flex gap-2 overflow-x-auto pb-2 xl:pb-0 scrollbar-hide w-full xl:w-auto shrink-0">
+              {['Todos', 'Conferencia', 'Taller', 'Meetup', 'Webinar'].map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setFilter(cat)}
+                  className={`h-10 px-5 rounded-xl text-sm font-bold transition-all whitespace-nowrap border ${filter === cat
+                    ? 'bg-[#7b2cbf] border-[#7b2cbf] text-white shadow-lg shadow-[#9d4edd]/20'
+                    : 'bg-[#130725] border-white/10 text-slate-400 hover:text-white hover:border-white/20 hover:bg-white/5'
+                    }`}
+                >
+                  {cat}
+                </button>
+              ))}
             </div>
+          </div>
+
+          {/* TOOLBAR: Search & Interest Dropdown */}
+          <div className="flex flex-col md:flex-row gap-4 mb-12">
+            {/* Search Bar */}
+            <div className="relative flex-grow group">
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-[#9d4edd] transition-colors">
+                <Search size={22} strokeWidth={2.5} />
+              </div>
+              <input
+                type="text"
+                placeholder="Buscar evento por nombre..."
+                className="w-full h-12 pl-14 pr-6 rounded-xl bg-[#130725] border border-white/10 text-white placeholder:text-slate-500 focus:outline-none focus:border-[#9d4edd]/50 focus:bg-[#1a0b30] focus:shadow-lg focus:shadow-[#9d4edd]/10 transition-all font-medium"
+              />
+            </div>
+
+            {/* Interest Dropdown */}
+            <div className="relative shrink-0 z-50">
+              <button
+                onClick={() => setIsInterestOpen(!isInterestOpen)}
+                className={`w-full md:w-auto h-12 px-6 rounded-xl border flex items-center justify-between gap-3 transition-all font-bold text-sm ${selectedInterest
+                  ? 'bg-[#7b2cbf]/20 border-[#7b2cbf] text-[#c77dff]'
+                  : 'bg-[#130725] border-white/10 text-slate-300 hover:border-white/30'}`}
+              >
+                <div className="flex items-center gap-2">
+                  <Filter size={18} />
+                  {selectedInterest || "Filtrar por Interés"}
+                </div>
+                {selectedInterest ? (
+                  <div
+                    onClick={(e) => { e.stopPropagation(); setSelectedInterest(null); }}
+                    className="p-0.5 hover:bg-white/20 rounded-full"
+                  >
+                    <X size={14} />
+                  </div>
+                ) : (
+                  <ChevronDown size={16} className={`transition-transform ${isInterestOpen ? 'rotate-180' : ''}`} />
+                )}
+              </button>
+
+              <AnimatePresence>
+                {isInterestOpen && (
+                  <>
+                    <div className="fixed inset-0 z-40" onClick={() => setIsInterestOpen(false)} />
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      className="absolute right-0 top-full mt-2 w-full md:w-64 bg-[#1e142b] border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-50 py-1"
+                    >
+                      {INTERESTS.map((interest) => (
+                        <button
+                          key={interest}
+                          onClick={() => { setSelectedInterest(interest); setIsInterestOpen(false); }}
+                          className={`w-full text-left px-4 py-3 text-sm font-medium hover:bg-white/5 transition-colors ${selectedInterest === interest ? 'text-[#c77dff] bg-white/5' : 'text-slate-300'}`}
+                        >
+                          {interest}
+                        </button>
+                      ))}
+                    </motion.div>
+                  </>
+                )}
+              </AnimatePresence>
+            </div>
+
           </div>
 
           {/* Real Events Grid */}
