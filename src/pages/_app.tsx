@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Inter, Poppins } from "next/font/google";
+import { AuthProvider } from "@/context/AuthContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,8 +16,10 @@ const poppins = Poppins({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={`${inter.variable} ${poppins.variable} font-sans`}>
-      <Component {...pageProps} />
-    </main>
+    <AuthProvider>
+      <main className={`${inter.variable} ${poppins.variable} font-sans`}>
+        <Component {...pageProps} />
+      </main>
+    </AuthProvider>
   );
 }
