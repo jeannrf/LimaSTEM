@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { Menu, X, Atom, LogOut, LayoutDashboard, UserCircle } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 import { UserMenu } from '@/components/UserMenu';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface LayoutProps {
   children: ReactNode;
@@ -23,6 +24,15 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Prevent scrolling when menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpen]);
+
   const navLinks = [
     { name: 'Eventos', href: '/eventos' },
     { name: 'Becas', href: '/becas' },
@@ -38,17 +48,18 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
-      {/* --- TRADITIONAL PREMIUM NAVBAR --- */}
+      {/* --- PREMIUM NAVBAR --- */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 border-b ${scrolled
-          ? 'bg-[#0b011d]/90 backdrop-blur-xl border-white/10 py-4 shadow-2xl'
-          : 'bg-[#0b011d]/60 backdrop-blur-md border-white/5 py-6'
+        className={`fixed top-0 left-0 right-0 z-[150] transition-all duration-300 border-b ${isOpen
+          ? 'bg-transparent border-transparent py-5' // Transparent when open
+          : scrolled
+            ? 'bg-[#0b011d]/80 backdrop-blur-xl border-white/10 py-5 shadow-2xl'
+            : 'bg-[#0b011d]/40 backdrop-blur-md border-white/5 py-5'
           }`}
       >
         <div className="container mx-auto px-8 max-w-7xl flex items-center justify-between relative">
-
-          {/* LOGO (Left) */}
-          <div className="flex items-center z-10">
+          {/* LOGO */}
+          <div className="flex items-center">
             <Link href={user ? "/dashboard" : "/"} className="text-xl font-bold tracking-tighter text-white cursor-pointer flex items-center gap-3 group">
               <div className="relative w-10 h-10 bg-gradient-to-br from-[#7b2cbf] to-[#9d4edd] rounded-xl flex items-center justify-center shadow-lg shadow-purple-500/20 group-hover:shadow-purple-500/40 group-hover:scale-105 transition-all duration-300">
                 <Atom size={20} className="text-white group-hover:rotate-180 transition-transform duration-700 ease-out" />
@@ -60,7 +71,7 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
             </Link>
           </div>
 
-          {/* BANKS (Centered) - Desktop Only */}
+          {/* DESKTOP NAV (Hidden on Mobile) */}
           <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2 gap-10">
             {navLinks.map((link) => (
               <Link
@@ -74,8 +85,8 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
             ))}
           </div>
 
-          {/* ACTIONS (Right) */}
-          <div className="hidden lg:flex items-center gap-4 z-10">
+          {/* ACTIONS (Desktop Only) */}
+          <div className="hidden lg:flex items-center gap-4">
             {user ? (
               <UserMenu />
             ) : (
@@ -90,44 +101,55 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
             )}
           </div>
 
-          {/* MOBILE TOGGLE */}
+          {/* MOBILE TOGGLE (No specific Z as nav parent handles high Z) */}
           <button
-            className="lg:hidden w-10 h-10 flex items-center justify-center bg-white/5 rounded-xl border border-white/10 z-10"
+            className={`lg:hidden w-11 h-11 flex items-center justify-center rounded-xl border transition-all duration-300 ${isOpen ? 'bg-white/10 border-white/20 text-white' : 'bg-white/5 border-white/10'
+              }`}
             onClick={() => setIsOpen(!isOpen)}
           >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
+      </nav>
 
-        {/* MOBILE MENU */}
+      {/* MOBILE MENU OVERLAY */}
+      <AnimatePresence>
         {isOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-[#0b011d]/98 backdrop-blur-3xl border-b border-white/10 p-8 flex flex-col gap-6 shadow-2xl animate-in slide-in-from-top-4 duration-300 h-screen max-h-[80vh] overflow-y-auto">
-            <div className="flex flex-col gap-4 text-center">
-              {navLinks.map((link) => (
-                <Link
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden fixed inset-0 bg-[#050110]/95 backdrop-blur-2xl z-[140] flex flex-col items-center justify-center p-8 pt-24"
+          >
+            <div className="flex flex-col gap-6 text-center w-full mb-12">
+              {navLinks.map((link, i) => (
+                <motion.div
                   key={link.name}
-                  href={link.href}
-                  className="text-2xl font-semibold text-white hover:text-[#9d4edd] transition-colors py-2"
-                  onClick={() => setIsOpen(false)}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 + i * 0.05 }}
                 >
-                  {link.name}
-                </Link>
+                  <Link
+                    href={link.href}
+                    className="text-4xl font-bold text-white hover:text-[#c77dff] transition-colors uppercase tracking-tight"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                </motion.div>
               ))}
             </div>
-            <div className="h-px bg-white/10 w-full my-2" />
-            <div className="flex flex-col gap-4">
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col gap-4 w-full max-w-[280px] border-t border-white/10 pt-8"
+            >
               {user ? (
-                <div className="space-y-4">
-                  <div className="flex items-center justify-center gap-3 p-4 bg-white/5 rounded-2xl">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#7b2cbf] to-[#9d4edd] flex items-center justify-center font-bold text-white">
-                      {user.email?.[0].toUpperCase()}
-                    </div>
-                    <div className="text-left">
-                      <p className="font-bold text-white text-sm">{user.user_metadata?.full_name}</p>
-                      <p className="text-xs text-slate-400">{user.email}</p>
-                    </div>
-                  </div>
-                  <Link href="/dashboard" onClick={() => setIsOpen(false)} className="h-12 flex items-center justify-center rounded-xl border border-white/10 font-semibold text-slate-300 hover:text-white">
+                <div className="space-y-4 w-full">
+                  <Link href="/dashboard" onClick={() => setIsOpen(false)} className="h-14 flex items-center justify-center rounded-2xl border border-white/10 font-bold text-slate-300 hover:text-white bg-white/5">
                     <LayoutDashboard size={18} className="mr-2" /> Panel Principal
                   </Link>
                   <button
@@ -135,25 +157,25 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
                       signOut();
                       setIsOpen(false);
                     }}
-                    className="h-12 w-full flex items-center justify-center rounded-xl bg-red-500/10 text-red-400 font-semibold hover:bg-red-500/20"
+                    className="h-14 w-full flex items-center justify-center rounded-2xl bg-red-500/10 text-red-400 font-bold hover:bg-red-500/20 border border-red-500/20"
                   >
-                    <LogOut size={18} className="mr-2" /> Cerrar Sesión
+                    <LogOut size={18} className="mr-2" /> Salir
                   </button>
                 </div>
               ) : (
                 <>
-                  <Link href="/login" onClick={() => setIsOpen(false)} className="h-14 flex items-center justify-center rounded-2xl border border-white/10 font-semibold uppercase tracking-widest text-sm text-white">
+                  <Link href="/login" onClick={() => setIsOpen(false)} className="h-14 flex items-center justify-center rounded-2xl border border-white/10 font-bold uppercase tracking-widest text-[11px] text-white bg-white/5 shadow-sm">
                     Ingresar
                   </Link>
-                  <Link href="/register" onClick={() => setIsOpen(false)} className="h-14 flex items-center justify-center rounded-2xl bg-[#7b2cbf] font-semibold shadow-lg shadow-[#9d4edd]/20 uppercase tracking-widest text-sm text-white">
+                  <Link href="/register" onClick={() => setIsOpen(false)} className="h-14 flex items-center justify-center rounded-2xl bg-[#7b2cbf] font-bold shadow-xl shadow-[#9d4edd]/30 uppercase tracking-widest text-[11px] text-white">
                     Registrarme
                   </Link>
                 </>
               )}
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         )}
-      </nav>
+      </AnimatePresence>
 
       <main className="pt-20 lg:pt-0">{children}</main>
 
