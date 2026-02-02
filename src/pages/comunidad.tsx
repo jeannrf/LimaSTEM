@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import MainLayout from '@/layouts/MainLayout';
+import { useAuth } from '@/context/AuthContext';
+import { LandingComunidad } from '@/components/landings/LandingComunidad';
 import { Users, Search, MessageCircle, UserPlus, Loader2, Sparkles } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
@@ -9,11 +11,12 @@ interface Profile {
   full_name: string;
   avatar_url: string | null;
   role: string;
-  occupation?: string; // Added occupation
+  occupation?: string;
   interests: string[] | null;
 }
 
 export default function ComunidadPage() {
+  const { user, loading: authLoading } = useAuth();
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -45,6 +48,27 @@ export default function ComunidadPage() {
     p.role?.toLowerCase().includes(search.toLowerCase())
   );
 
+  // 1. Loading State
+  if (loading || authLoading) {
+    return (
+      <MainLayout title="Cargando... | LimaSTEM">
+        <div className="min-h-screen bg-[#0b011d] flex items-center justify-center">
+          <Loader2 className="w-10 h-10 text-[#9d4edd] animate-spin" />
+        </div>
+      </MainLayout>
+    );
+  }
+
+  // 2. Unauthenticated State -> Show Landing
+  if (!user) {
+    return (
+      <MainLayout title="Comunidad y Networking STEM | LimaSTEM">
+        <LandingComunidad />
+      </MainLayout>
+    );
+  }
+
+  // 3. Authenticated State -> Show Dashboard
   return (
     <MainLayout title="Comunidad | LimaSTEM">
       <div className="min-h-screen pt-32 pb-20 px-6 relative overflow-hidden bg-[#0b011d]">
@@ -79,84 +103,77 @@ export default function ComunidadPage() {
           </div>
 
           {/* Grid */}
-          {loading ? (
-            <div className="flex justify-center py-20">
-              <Loader2 className="w-10 h-10 text-[#9d4edd] animate-spin" />
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredProfiles.map((profile, index) => {
-                // Generate Initials
-                const initials = profile.full_name
-                  ? profile.full_name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase()
-                  : "??";
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {filteredProfiles.map((profile, index) => {
+              // Generate Initials
+              const initials = profile.full_name
+                ? profile.full_name.split(" ").map(n => n[0]).join("").substring(0, 2).toUpperCase()
+                : "??";
 
-                return (
-                  <motion.div
-                    key={profile.id}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.05 }}
-                    className="bg-[#130725] border border-white/5 rounded-3xl p-6 hover:border-[#9d4edd]/30 transition-all hover:shadow-2xl hover:shadow-[#9d4edd]/5 group flex flex-col items-center text-center relative overflow-hidden"
-                  >
-                    {/* Avatar */}
-                    <div className="relative mb-4">
-                      <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#7b2cbf] to-[#9d4edd] p-[2px]">
-                        <div className="w-full h-full rounded-full bg-[#130725] flex items-center justify-center overflow-hidden">
-                          {profile.avatar_url ? (
-                            <img src={profile.avatar_url} alt={profile.full_name} className="w-full h-full object-cover" />
-                          ) : (
-                            <span className="text-2xl font-bold text-white tracking-widest">{initials}</span>
-                          )}
-                        </div>
-                      </div>
-                      <div className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-[#0b011d] flex items-center justify-center">
-                        <div className="w-4 h-4 rounded-full bg-green-500 border-2 border-[#0b011d]" />
+              return (
+                <motion.div
+                  key={profile.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
+                  className="bg-[#130725] border border-white/5 rounded-3xl p-6 hover:border-[#9d4edd]/30 transition-all hover:shadow-2xl hover:shadow-[#9d4edd]/5 group flex flex-col items-center text-center relative overflow-hidden"
+                >
+                  {/* Avatar */}
+                  <div className="relative mb-4">
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#7b2cbf] to-[#9d4edd] p-[2px]">
+                      <div className="w-full h-full rounded-full bg-[#130725] flex items-center justify-center overflow-hidden">
+                        {profile.avatar_url ? (
+                          <img src={profile.avatar_url} alt={profile.full_name} className="w-full h-full object-cover" />
+                        ) : (
+                          <span className="text-2xl font-bold text-white tracking-widest">{initials}</span>
+                        )}
                       </div>
                     </div>
-
-                    {/* Info */}
-                    <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#c77dff] transition-colors line-clamp-1">
-                      {profile.full_name || "Usuario Anónimo"}
-                    </h3>
-                    <p className="text-xs font-medium text-[#c77dff] bg-[#c77dff]/10 px-3 py-1 rounded-full border border-[#c77dff]/20 mb-4 uppercase tracking-wider max-w-full truncate">
-                      {profile.occupation || (profile.role === 'student' ? 'Estudiante' : profile.role) || 'Miembro'}
-                    </p>
-
-                    {/* Interests Tags */}
-                    <div className="flex flex-wrap justify-center gap-2 mb-6 w-full min-h-[3rem]">
-                      {(profile.interests || []).slice(0, 3).map((tag, i) => (
-                        <span key={i} className="text-[10px] font-medium text-slate-300 bg-white/5 px-2.5 py-1 rounded-md border border-white/10 hover:border-[#9d4edd]/50 transition-colors">
-                          {tag}
-                        </span>
-                      ))}
-                      {(profile.interests?.length || 0) > 3 && (
-                        <span className="text-[10px] text-slate-500 flex items-center">+{(profile.interests?.length || 0) - 3}</span>
-                      )}
+                    <div className="absolute bottom-0 right-0 w-6 h-6 rounded-full bg-[#0b011d] flex items-center justify-center">
+                      <div className="w-4 h-4 rounded-full bg-green-500 border-2 border-[#0b011d]" />
                     </div>
+                  </div>
 
-                    {/* Actions */}
-                    <div className="flex gap-2 w-full mt-auto">
-                      <button className="flex-1 h-9 rounded-xl bg-white text-black text-xs font-bold flex items-center justify-center gap-2 hover:bg-[#c77dff] hover:text-white transition-all">
-                        <MessageCircle size={14} /> Mensaje
-                      </button>
-                      <button className="h-9 w-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-all">
-                        <UserPlus size={14} />
-                      </button>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-          )}
+                  {/* Info */}
+                  <h3 className="text-lg font-bold text-white mb-1 group-hover:text-[#c77dff] transition-colors line-clamp-1">
+                    {profile.full_name || "Usuario Anónimo"}
+                  </h3>
+                  <p className="text-xs font-medium text-[#c77dff] bg-[#c77dff]/10 px-3 py-1 rounded-full border border-[#c77dff]/20 mb-4 uppercase tracking-wider max-w-full truncate">
+                    {profile.occupation || (profile.role === 'student' ? 'Estudiante' : profile.role) || 'Miembro'}
+                  </p>
 
-          {!loading && filteredProfiles.length === 0 && (
+                  {/* Interests Tags */}
+                  <div className="flex flex-wrap justify-center gap-2 mb-6 w-full min-h-[3rem]">
+                    {(profile.interests || []).slice(0, 3).map((tag, i) => (
+                      <span key={i} className="text-[10px] font-medium text-slate-300 bg-white/5 px-2.5 py-1 rounded-md border border-white/10 hover:border-[#9d4edd]/50 transition-colors">
+                        {tag}
+                      </span>
+                    ))}
+                    {(profile.interests?.length || 0) > 3 && (
+                      <span className="text-[10px] text-slate-500 flex items-center">+{(profile.interests?.length || 0) - 3}</span>
+                    )}
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-2 w-full mt-auto">
+                    <button className="flex-1 h-9 rounded-xl bg-white text-black text-xs font-bold flex items-center justify-center gap-2 hover:bg-[#c77dff] hover:text-white transition-all">
+                      <MessageCircle size={14} /> Mensaje
+                    </button>
+                    <button className="h-9 w-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10 transition-all">
+                      <UserPlus size={14} />
+                    </button>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+
+          {!loading && user && filteredProfiles.length === 0 && (
             <div className="text-center py-20 opacity-50">
               <p className="text-xl text-white">No se encontraron miembros.</p>
             </div>
           )}
-
         </div>
       </div>
     </MainLayout>
