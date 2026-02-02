@@ -1,8 +1,8 @@
 # 🚀 LimaSTEM - Plataforma de Oportunidades STEM en Perú
 
-**LimaSTEM** es una plataforma web diseñada para centralizar y democratizar el acceso a oportunidades en Ciencia, Tecnología, Ingeniería y Matemáticas (STEM) para estudiantes y jóvenes profesionales en Perú.
+https://lima-stem.vercel.app/
 
-![LimaSTEM Banner](public/logo.png) *Añadir captura o logo aquí*
+**LimaSTEM** es una plataforma web diseñada para centralizar y democratizar el acceso a oportunidades en Ciencia, Tecnología, Ingeniería y Matemáticas (STEM) para estudiantes y jóvenes profesionales en Perú.
 
 ## ✨ Características Principales
 
@@ -72,6 +72,3 @@ El proyecto requiere las siguientes tablas en Supabase. Puedes ejecutar los scri
 ## 📄 Licencia
 
 Este proyecto es de código abierto.
-
----
-*Desarrollado con ❤️ por Jeanpier Robles para la comunidad STEM de Perú.*
