@@ -122,10 +122,7 @@ export const LandingBecas = () => {
               className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
             >
               <Link href="/register" className="h-14 px-8 rounded-full bg-[#7b2cbf] hover:bg-[#9d4edd] text-white font-semibold transition-all shadow-[0_10px_30px_-10px_rgba(123,44,191,0.3)] flex items-center justify-center gap-2 group">
-                Buscar Becas Gratis <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link href="/login" className="h-14 px-8 rounded-full bg-transparent border border-white/10 text-white font-medium hover:bg-white/5 transition-all flex items-center justify-center">
-                Ya tengo cuenta
+                Encontrar becas <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
 

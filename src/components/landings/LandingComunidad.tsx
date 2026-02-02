@@ -129,10 +129,7 @@ export const LandingComunidad = () => {
               className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
             >
               <Link href="/register" className="h-14 px-8 rounded-full bg-[#7b2cbf] hover:bg-[#9d4edd] text-white font-semibold transition-all shadow-lg shadow-[#9d4edd]/20 flex items-center justify-center gap-2 group">
-                Crear mi Perfil <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link href="/login" className="h-14 px-8 rounded-full bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition-all flex items-center justify-center">
-                Entrar a la Tribu
+                Comenzar Networking <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
 

@@ -48,10 +48,7 @@ export const LandingHackathones = () => {
               className="flex flex-col sm:flex-row gap-6 w-full sm:w-auto"
             >
               <Link href="/register" className="h-14 px-10 bg-[#7b2cbf] hover:bg-[#9d4edd] text-white font-semibold uppercase tracking-widest skew-x-[-10deg] transition-all hover:scale-105 shadow-[0_0_30px_rgba(123,44,191,0.4)] flex items-center justify-center">
-                <span className="skew-x-[10deg] flex items-center gap-2">Unirse al Reto <Terminal size={18} /></span>
-              </Link>
-              <Link href="/login" className="h-14 px-10 border border-[#9d4edd]/30 text-[#c77dff] hover:bg-[#9d4edd]/10 font-medium uppercase tracking-widest skew-x-[-10deg] transition-all flex items-center justify-center">
-                <span className="skew-x-[10deg]">Login</span>
+                <span className="skew-x-[10deg] flex items-center gap-2">Participar en Hackathones <Terminal size={18} /></span>
               </Link>
             </motion.div>
           </div>
