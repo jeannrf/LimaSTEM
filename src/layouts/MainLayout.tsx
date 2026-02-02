@@ -247,37 +247,24 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
         {children}
       </main>
 
-      <footer className="mt-12 border-t border-white/5 py-16 bg-[#0b011d]">
-        <div className="container mx-auto px-8 grid grid-cols-2 lg:grid-cols-4 gap-16 max-w-6xl">
-          <div className="col-span-2 lg:col-span-1">
-            <div className="text-lg font-extrabold text-white mb-8 tracking-tighter">LimaSTEM</div>
-            <p className="text-sm text-slate-400 leading-relaxed max-w-[240px]">
-              La plataforma central de eventos STEM y crecimiento personal en la ciudad de Lima.
-            </p>
+      <footer className="mt-8 border-t border-white/5 py-8 bg-[#0b011d]">
+        <div className="container mx-auto px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm opacity-60">
+
+          {/* Brand & Copyright */}
+          <div className="flex items-center gap-2">
+            <span className="font-bold text-white tracking-tight">LimaSTEM</span>
+            <span className="text-slate-500">•</span>
+            <span className="text-slate-500">© {new Date().getFullYear()}</span>
           </div>
-          {[
-            { title: 'Plataforma', links: ['Explorar Eventos', 'Agenda Semanal', 'Cursos Cortos'] },
-            { title: 'Comunidad', links: ['Sobre nosotros', 'Contacto', 'Newsletter'] },
-            { title: 'Legal', links: ['Privacidad', 'Términos de servicio'] }
-          ].map((section) => (section && (
-            <div key={section.title}>
-              <div className="text-[11px] font-bold text-[#c77dff] uppercase tracking-[0.2em] mb-8">{section.title}</div>
-              <ul className="space-y-4">
-                {section.links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-sm text-slate-400 hover:text-white transition-colors font-medium">{link}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )))}
-        </div>
-        <div className="container mx-auto px-8 mt-24 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8 text-xs text-slate-500 font-bold uppercase tracking-widest">
-          <div>© {new Date().getFullYear()} LimaSTEM / Hecho en Lima</div>
-          <div className="flex gap-12">
-            <a href="#" className="hover:text-white transition-colors">Instagram</a>
-            <a href="#" className="hover:text-white transition-colors">LinkedIn</a>
+
+          {/* Minimal Links */}
+          <div className="flex flex-wrap justify-center gap-8 text-xs font-bold text-slate-400 uppercase tracking-widest">
+            <a href="#" className="hover:text-[#c77dff] transition-colors">Sobre Nosotros</a>
+            <a href="#" className="hover:text-[#c77dff] transition-colors">Privacidad</a>
+            <a href="#" className="hover:text-[#c77dff] transition-colors">Términos</a>
+            <a href="#" className="hover:text-[#c77dff] transition-colors">Contacto</a>
           </div>
+
         </div>
       </footer>
     </div>
