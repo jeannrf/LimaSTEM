@@ -86,14 +86,14 @@ export default function EventosPage() {
   // 3. Authenticated State -> Show Dashboard
   return (
     <MainLayout title="Eventos | LimaSTEM">
-      <div className="min-h-screen pt-32 pb-20 px-6 relative overflow-hidden bg-[#0b011d]">
+      <div className="min-h-screen pt-4 md:pt-32 pb-20 px-6 relative overflow-hidden bg-[#0b011d]">
         {/* Ambient Background */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#9d4edd] opacity-5 blur-[150px] rounded-full -z-10" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#7b2cbf] opacity-5 blur-[150px] rounded-full -z-10" />
 
         <div className="container mx-auto max-w-7xl">
           {/* Header Dashboard */}
-          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 gap-6">
             <div>
               <h1 className="text-4xl md:text-5xl font-medium text-white mb-4">
                 Explora el Calendario <span className="text-[#c77dff]">STEM</span>
@@ -104,7 +104,7 @@ export default function EventosPage() {
             </div>
 
             {/* User Controls (Search/Filter) */}
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-6 w-full md:w-auto">
               <div className="relative w-full md:w-96 group">
                 <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-[#9d4edd] transition-colors">
                   <Search size={20} />

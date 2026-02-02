@@ -66,7 +66,7 @@ export default function BecasPage() {
   // 3. Authenticated State -> Show List
   return (
     <MainLayout title="Becas | LimaSTEM">
-      <div className="min-h-screen pt-32 pb-20 px-6 relative overflow-hidden bg-[#0b011d]">
+      <div className="min-h-screen pt-4 md:pt-32 pb-20 px-6 relative overflow-hidden bg-[#0b011d]">
         {/* Background Elements */}
         <div className="absolute top-20 left-1/4 w-[600px] h-[600px] bg-[#9d4edd] opacity-5 blur-[180px] rounded-full -z-10" />
 

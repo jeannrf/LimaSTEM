@@ -71,7 +71,7 @@ export default function ComunidadPage() {
   // 3. Authenticated State -> Show Dashboard
   return (
     <MainLayout title="Comunidad | LimaSTEM">
-      <div className="min-h-screen pt-32 pb-20 px-6 relative overflow-hidden bg-[#0b011d]">
+      <div className="min-h-screen pt-4 md:pt-32 pb-20 px-6 relative overflow-hidden bg-[#0b011d]">
         {/* Background Elements */}
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#9d4edd] opacity-5 blur-[150px] rounded-full -z-10" />
         <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#7b2cbf] opacity-5 blur-[150px] rounded-full -z-10" />
