@@ -28,8 +28,8 @@ export const LandingHackathones = () => {
               transition={{ delay: 0.1 }}
               className="text-5xl md:text-7xl font-medium text-white mb-6 tracking-tighter uppercase max-w-5xl leading-none"
             >
-              Build. Ship. <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9d4edd] to-[#c77dff]">Win.</span>
+              Construye. Lanza. <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9d4edd] to-[#c77dff]">Gana.</span>
             </motion.h1>
 
             <motion.p
@@ -79,18 +79,18 @@ export const LandingHackathones = () => {
                   <div className="text-[#c77dff] opacity-50 group-hover:opacity-100">01</div>
                   <div>
                     <div className="text-white font-bold group-hover:text-[#c77dff]">&gt; Blockchain Summit</div>
-                    <div className="text-xs text-slate-500">Prize: $5,000 USD</div>
+                    <div className="text-xs text-slate-500">Premio: $5,000 USD</div>
                   </div>
-                  <div className="ml-auto text-xs text-green-400 border border-green-500/30 px-2 py-1 rounded">OPEN</div>
+                  <div className="ml-auto text-xs text-green-400 border border-green-500/30 px-2 py-1 rounded">ABIERTO</div>
                 </div>
 
                 <div className="flex items-center gap-4 group cursor-pointer hover:bg-[#9d4edd]/5 p-2 rounded transition-colors">
                   <div className="text-[#c77dff] opacity-50 group-hover:opacity-100">02</div>
                   <div>
                     <div className="text-white font-bold group-hover:text-[#c77dff]">&gt; AI for Good Lima</div>
-                    <div className="text-xs text-slate-500">Prize: Incubation + Cash</div>
+                    <div className="text-xs text-slate-500">Premio: Incubación + Efectivo</div>
                   </div>
-                  <div className="ml-auto text-xs text-yellow-400 border border-yellow-500/30 px-2 py-1 rounded">SOON</div>
+                  <div className="ml-auto text-xs text-yellow-400 border border-yellow-500/30 px-2 py-1 rounded">PRONTO</div>
                 </div>
               </div>
 
@@ -99,12 +99,12 @@ export const LandingHackathones = () => {
                 <div className="bg-[#9d4edd]/10 border border-[#9d4edd]/20 p-3 rounded flex-1 text-center">
                   <Trophy size={20} className="text-[#c77dff] mx-auto mb-1" />
                   <div className="text-lg font-bold text-white">12</div>
-                  <div className="text-[10px] text-slate-400">Active Events</div>
+                  <div className="text-[10px] text-slate-400">Eventos Activos</div>
                 </div>
                 <div className="bg-[#9d4edd]/10 border border-[#9d4edd]/20 p-3 rounded flex-1 text-center">
                   <Users size={20} className="text-[#c77dff] mx-auto mb-1" />
                   <div className="text-lg font-bold text-white">340</div>
-                  <div className="text-[10px] text-slate-400">Hackers Ready</div>
+                  <div className="text-[10px] text-slate-400">Hackers Listos</div>
                 </div>
               </div>
 

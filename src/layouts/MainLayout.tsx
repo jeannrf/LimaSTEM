@@ -68,16 +68,23 @@ const Layout = ({ children, title = 'LimaSTEM' }: LayoutProps) => {
 
           {/* DESKTOP NAV */}
           <div className="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2 gap-10">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-[12px] font-semibold text-slate-400 hover:text-[#c77dff] transition-all uppercase tracking-widest relative group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#c77dff] transition-all group-hover:w-full" />
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = router.pathname.startsWith(link.href);
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`text-[12px] font-semibold transition-all uppercase tracking-widest relative group ${isActive ? 'text-[#c77dff]' : 'text-slate-400 hover:text-[#c77dff]'
+                    }`}
+                >
+                  {link.name}
+                  <span
+                    className={`absolute -bottom-1 left-0 h-0.5 bg-[#c77dff] transition-all ${isActive ? 'w-full' : 'w-0 group-hover:w-full'
+                      }`}
+                  />
+                </Link>
+              );
+            })}
           </div>
 
           {/* ACTIONS & MOBILE CONTROLS */}

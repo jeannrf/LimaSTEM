@@ -22,7 +22,7 @@ export const LandingEventos = () => {
               animate={{ opacity: 1, x: 0 }}
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-[11px] font-semibold text-[#c77dff] uppercase tracking-widest mb-8 backdrop-blur-md"
             >
-              <Star size={12} className="text-[#ffdd00]" /> Tu Agenda Definitiva en Lima
+              <Star size={12} className="text-[#c77dff]" /> Tu Agenda Definitiva en Lima
             </motion.div>
 
             <motion.h1
@@ -32,7 +32,7 @@ export const LandingEventos = () => {
               className="text-5xl md:text-6xl font-medium text-white mb-6 leading-[1.1] tracking-tight"
             >
               Potencia tu futuro con <br />
-              <span className="text-white">LimaSTEM</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#9d4edd] to-[#c77dff]">LimaSTEM</span>
             </motion.h1>
 
             <motion.p
@@ -55,20 +55,7 @@ export const LandingEventos = () => {
               </Link>
             </motion.div>
 
-            {/* Mini Stats or Social Proof */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-              className="mt-12 flex items-center gap-4 text-sm text-slate-500"
-            >
-              <div className="flex -space-x-2">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className={`w-8 h-8 rounded-full border-2 border-[#0b011d] bg-slate-700 flex items-center justify-center overflow-hidden bg-[url('https://i.pravatar.cc/100?img=${i + 10}')] bg-cover`} />
-                ))}
-              </div>
-              <p>Unido por +200 devs esta semana</p>
-            </motion.div>
+
           </div>
 
           {/* Right Column: Mock UI */}
@@ -109,7 +96,7 @@ export const LandingEventos = () => {
                       <Zap size={10} /> Ahora
                     </span>
                   </div>
-                  <h4 className="text-white font-bold mb-1 group-hover:text-[#c77dff] transition-colors">Hackathon IA Lima 2026</h4>
+                  <h4 className="text-white font-bold mb-1 group-hover:text-[#c77dff] transition-colors">Conferencia Tech Lima 2026</h4>
                   <div className="flex items-center gap-2 text-xs text-slate-400">
                     <MapPin size={12} /> <span className="truncate">UPC Monterrico, Lima</span>
                   </div>
@@ -140,40 +127,9 @@ export const LandingEventos = () => {
               </div>
 
             </div>
-
-            {/* Small Floating Card 1 (Bottom Right) */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-              className="absolute -bottom-8 -right-4 bg-[#1a0b2e] p-4 rounded-2xl border border-white/10 shadow-xl max-w-[200px] hidden md:block"
-            >
-              <div className="text-[10px] text-slate-400 uppercase font-bold mb-1">Impacto en Lima</div>
-              <div className="text-2xl font-bold text-white mb-1">4.2k</div>
-              <div className="text-[10px] text-[#c77dff]">Estudiantes activos</div>
-            </motion.div>
-
-            {/* Small Floating Card 2 (Top Left) */}
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-6 -left-8 bg-[#1a0b2e] p-4 rounded-2xl border border-white/10 shadow-xl hidden md:block"
-            >
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-green-500/20 text-green-500 flex items-center justify-center">
-                  <Zap size={16} />
-                </div>
-                <div>
-                  <div className="text-[10px] text-slate-400 uppercase font-bold">Crecimiento</div>
-                  <div className="text-xs font-bold text-white">Soft Skills +45%</div>
-                  {/* Progress bar */}
-                  <div className="w-20 h-1 bg-white/10 rounded-full mt-1 overflow-hidden">
-                    <div className="h-full w-[45%] bg-green-500" />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
           </motion.div>
+
+
 
         </div>
       </div>
