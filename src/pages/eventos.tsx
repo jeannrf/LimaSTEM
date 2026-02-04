@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { useAuth } from '@/context/AuthContext';
 import { LandingEventos } from '@/components/landings/LandingEventos';
-import { Calendar, MapPin, Search, Filter, Loader2, Sparkles, Bell, Ticket, ChevronDown, X } from 'lucide-react';
+import { Calendar, MapPin, Search, Filter, Loader2, Sparkles, Bell, Ticket, ChevronDown, X, ExternalLink, ArrowUpRight } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -16,6 +16,7 @@ interface Event {
   category: string;
   image_url: string | null;
   is_featured: boolean;
+  external_link?: string;
 }
 
 const INTERESTS = ['Blockchain', 'Ciberseguridad', 'Data Science', 'Diseño UX/UI', 'Inteligencia Artificial', 'Programación', 'Robótica'];
@@ -29,6 +30,7 @@ export default function EventosPage() {
   const [filter, setFilter] = useState('Todos');
   const [isInterestOpen, setIsInterestOpen] = useState(false);
   const [selectedInterest, setSelectedInterest] = useState<string | null>(null);
+  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
   useEffect(() => {
     // Fetch events for everyone
@@ -201,19 +203,23 @@ export default function EventosPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="group relative bg-[#130725] border border-white/5 rounded-3xl overflow-hidden hover:border-[#9d4edd]/30 transition-all hover:shadow-2xl hover:shadow-[#9d4edd]/5"
+                onClick={() => setSelectedEvent(event)}
+                className="group relative bg-[#130725] border border-white/5 rounded-3xl overflow-hidden hover:border-[#9d4edd]/50 transition-all duration-300 hover:shadow-2xl hover:shadow-[#9d4edd]/10 cursor-pointer flex flex-col"
               >
                 {/* Image / Gradient Header */}
-                <div className={`h-48 w-full bg-gradient-to-br ${getGradient(index)} relative p-6 flex flex-col justify-between overflow-hidden`}>
+                <div className={`h-48 w-full bg-gradient-to-br ${getGradient(index)} relative p-6 flex flex-col justify-between overflow-hidden shrink-0`}>
                   {/* Decorative blurred circle */}
                   <div className="absolute top-[-50%] right-[-50%] w-full h-full bg-white/20 blur-[80px] rounded-full group-hover:scale-150 transition-transform duration-700" />
 
-                  <div className="relative z-10 flex justify-between items-start">
-                    <span className="px-3 py-1 rounded-lg bg-black/40 backdrop-blur-md text-[10px] font-bold text-white uppercase tracking-wider border border-white/10">
+                  {/* Glass overly effect on hover */}
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-white/5 transition-colors duration-300" />
+
+                  <div className="relative z-10 flex justify-between items-start w-full">
+                    <span className="px-3 py-1 rounded-full bg-black/30 backdrop-blur-md text-[10px] font-bold text-white uppercase tracking-wider border border-white/10 shadow-sm">
                       {event.category}
                     </span>
                     {event.is_featured && (
-                      <span className="flex items-center gap-1 px-2 py-1 rounded-md bg-[#ffdd00]/20 text-[#ffdd00] text-[10px] font-bold border border-[#ffdd00]/30">
+                      <span className="flex items-center gap-1 px-2 py-1 rounded-full bg-[#ffdd00]/20 text-[#ffdd00] text-[10px] font-bold border border-[#ffdd00]/30 shadow-[0_0_10px_rgba(255,221,0,0.2)]">
                         <Sparkles size={10} /> DESTACADO
                       </span>
                     )}
@@ -221,17 +227,22 @@ export default function EventosPage() {
                 </div>
 
                 {/* Card Body */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#c77dff] transition-colors leading-tight min-h-[3.5rem]">
+                <div className="p-6 flex flex-col flex-grow relative">
+                  {/* Decorative faint glow behind content */}
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-[#9d4edd]/5 blur-3xl rounded-full pointer-events-none" />
+
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#c77dff] transition-colors leading-tight min-h-[3.5rem] z-10">
                     {event.title}
                   </h3>
-                  <p className="text-slate-400 text-sm mb-6 line-clamp-2 min-h-[2.5rem]">
+                  <p className="text-slate-400 text-sm mb-6 line-clamp-2 min-h-[2.5rem] z-10 flex-grow">
                     {event.description}
                   </p>
 
-                  <div className="space-y-3 pt-4 border-t border-white/5">
+                  <div className="space-y-4 pt-4 border-t border-white/5 z-10">
                     <div className="flex items-center gap-3 text-slate-300 text-sm">
-                      <Calendar size={16} className="text-[#9d4edd]" />
+                      <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                        <Calendar size={14} className="text-[#9d4edd]" />
+                      </div>
                       <span>
                         {new Date(event.date).toLocaleDateString('es-PE', {
                           day: 'numeric', month: 'long', year: 'numeric'
@@ -239,14 +250,20 @@ export default function EventosPage() {
                       </span>
                     </div>
                     <div className="flex items-center gap-3 text-slate-300 text-sm">
-                      <MapPin size={16} className="text-[#9d4edd]" />
-                      <span>{event.location}</span>
+                      <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                        <MapPin size={14} className="text-[#9d4edd]" />
+                      </div>
+                      <span className="truncate">{event.location}</span>
                     </div>
                   </div>
-                </div>
 
-                {/* Hover Action (Sutil) */}
-                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#7b2cbf] to-[#9d4edd] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
+                  {/* "Ver Detalles" indicator */}
+                  <div className="mt-4 flex justify-end">
+                    <span className="text-xs font-bold text-[#c77dff] flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                      Ver Detalles <ArrowUpRight size={14} />
+                    </span>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </div>
@@ -257,6 +274,103 @@ export default function EventosPage() {
             </div>
           )}
         </div>
+
+        {/* Modal Event Details */}
+        <AnimatePresence>
+          {selectedEvent && (
+            <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setSelectedEvent(null)}
+                className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              />
+
+              {/* Modal Content */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                className="relative w-full max-w-2xl bg-[#1e142b] border border-white/10 rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => setSelectedEvent(null)}
+                  className="absolute top-4 right-4 z-20 p-2 bg-black/20 hover:bg-white/10 text-white rounded-full backdrop-blur-md transition-colors"
+                >
+                  <X size={20} />
+                </button>
+
+                {/* Header Image/Gradient */}
+                <div className={`h-40 sm:h-52 w-full bg-gradient-to-br ${getGradient(events.indexOf(selectedEvent))} relative shrink-0`}>
+                  <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay" />
+                  <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#1e142b] to-transparent" />
+
+                  <div className="absolute bottom-6 left-6 right-6">
+                    <span className="px-3 py-1 rounded-full bg-[#9d4edd]/20 border border-[#9d4edd]/30 text-[#c77dff] text-xs font-bold uppercase tracking-wider mb-3 inline-block">
+                      {selectedEvent.category}
+                    </span>
+                    <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+                      {selectedEvent.title}
+                    </h2>
+                  </div>
+                </div>
+
+                {/* Modal Body */}
+                <div className="p-6 overflow-y-auto custom-scrollbar">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                    <div className="flex items-center gap-3 p-4 rounded-2xl bg-[#130725] border border-white/5">
+                      <div className="w-10 h-10 rounded-full bg-[#9d4edd]/10 flex items-center justify-center text-[#9d4edd]">
+                        <Calendar size={20} />
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-400 font-medium">Fecha</p>
+                        <p className="text-white font-medium">
+                          {new Date(selectedEvent.date).toLocaleDateString('es-PE', {
+                            weekday: 'long', day: 'numeric', month: 'long'
+                          })}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3 p-4 rounded-2xl bg-[#130725] border border-white/5">
+                      <div className="w-10 h-10 rounded-full bg-[#9d4edd]/10 flex items-center justify-center text-[#9d4edd]">
+                        <MapPin size={20} />
+                      </div>
+                      <div>
+                        <p className="text-xs text-slate-400 font-medium">Ubicación</p>
+                        <p className="text-white font-medium truncate">
+                          {selectedEvent.location}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="prose prose-invert max-w-none mb-8">
+                    <h3 className="text-lg font-bold text-white mb-2">Acerca del evento</h3>
+                    <p className="text-slate-300 leading-relaxed whitespace-pre-line">
+                      {selectedEvent.description}
+                    </p>
+                  </div>
+
+                  <div className="sticky bottom-0 pt-4 bg-[#1e142b] border-t border-white/5 mt-auto">
+                    <button
+                      onClick={() => window.open(selectedEvent.external_link || 'https://www.linkedin.com/search/results/all/?keywords=evento%20tecnologia%20lima', '_blank')}
+                      className="w-full py-4 rounded-xl bg-gradient-to-r from-[#7b2cbf] to-[#9d4edd] hover:shadow-lg hover:shadow-[#9d4edd]/25 text-white font-bold text-lg transition-all flex items-center justify-center gap-2"
+                    >
+                      <span>Inscribirme ahora</span>
+                      <ExternalLink size={20} />
+                    </button>
+                    <p className="text-center text-slate-500 text-xs mt-3">
+                      Serás redirigido a la página oficial del evento
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
       </div>
     </MainLayout>
   );
