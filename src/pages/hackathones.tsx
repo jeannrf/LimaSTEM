@@ -147,9 +147,14 @@ export default function HackathonesPage() {
                         </div>
                       </div>
 
-                      <button className="h-12 px-8 bg-[#00f3ff] hover:bg-[#00c2cc] text-[#050011] font-black uppercase tracking-widest skew-x-[-10deg] transition-all hover:scale-105 active:scale-95 flex items-center gap-2">
+                      <a
+                        href={hack.register_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="h-12 px-8 bg-[#00f3ff] hover:bg-[#00c2cc] text-[#050011] font-black uppercase tracking-widest skew-x-[-10deg] transition-all hover:scale-105 active:scale-95 flex items-center gap-2"
+                      >
                         <span className="skew-x-[10deg] flex items-center gap-2">Inscribirse <Code2 size={18} /></span>
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>

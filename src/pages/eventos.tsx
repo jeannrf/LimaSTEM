@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import MainLayout from '@/layouts/MainLayout';
 import { useAuth } from '@/context/AuthContext';
 import { LandingEventos } from '@/components/landings/LandingEventos';
-import { Calendar, MapPin, Search, Filter, Loader2, Sparkles, Bell, Ticket, ChevronDown, X } from 'lucide-react';
+import { Calendar, MapPin, Clock, Search, Filter, Loader2, Sparkles, Bell, Ticket, ChevronDown, X } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -16,6 +16,7 @@ interface Event {
   category: string;
   image_url: string | null;
   is_featured: boolean;
+  registration_link?: string;
 }
 
 const INTERESTS = ['Blockchain', 'Ciberseguridad', 'Data Science', 'Diseño UX/UI', 'Inteligencia Artificial', 'Programación', 'Robótica'];
@@ -201,10 +202,10 @@ export default function EventosPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="group relative bg-[#130725] border border-white/5 rounded-3xl overflow-hidden hover:border-[#9d4edd]/30 transition-all hover:shadow-2xl hover:shadow-[#9d4edd]/5"
+                className="group relative bg-[#130725] border border-white/5 rounded-3xl overflow-hidden hover:border-[#9d4edd]/30 transition-all hover:shadow-2xl hover:shadow-[#9d4edd]/5 flex flex-col"
               >
                 {/* Image / Gradient Header */}
-                <div className={`h-48 w-full bg-gradient-to-br ${getGradient(index)} relative p-6 flex flex-col justify-between overflow-hidden`}>
+                <div className={`h-48 w-full bg-gradient-to-br ${getGradient(index)} relative p-6 flex flex-col justify-between overflow-hidden shrink-0`}>
                   {/* Decorative blurred circle */}
                   <div className="absolute top-[-50%] right-[-50%] w-full h-full bg-white/20 blur-[80px] rounded-full group-hover:scale-150 transition-transform duration-700" />
 
@@ -221,7 +222,7 @@ export default function EventosPage() {
                 </div>
 
                 {/* Card Body */}
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-grow">
                   <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#c77dff] transition-colors leading-tight min-h-[3.5rem]">
                     {event.title}
                   </h3>
@@ -229,7 +230,7 @@ export default function EventosPage() {
                     {event.description}
                   </p>
 
-                  <div className="space-y-3 pt-4 border-t border-white/5">
+                  <div className="space-y-3 pt-4 border-t border-white/5 mb-6">
                     <div className="flex items-center gap-3 text-slate-300 text-sm">
                       <Calendar size={16} className="text-[#9d4edd]" />
                       <span>
@@ -239,13 +240,33 @@ export default function EventosPage() {
                       </span>
                     </div>
                     <div className="flex items-center gap-3 text-slate-300 text-sm">
+                      <Clock size={16} className="text-[#9d4edd]" />
+                      <span>
+                        {new Date(event.date).toLocaleTimeString('es-PE', {
+                          hour: '2-digit', minute: '2-digit', hour12: true
+                        })}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 text-slate-300 text-sm">
                       <MapPin size={16} className="text-[#9d4edd]" />
                       <span>{event.location}</span>
                     </div>
                   </div>
+
+                  {/* Action Button */}
+                  <div className="mt-auto">
+                    <a
+                      href={event.registration_link || `https://www.linkedin.com/search/results/all/?keywords=${encodeURIComponent(event.title)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full h-11 rounded-xl bg-white text-black font-bold flex items-center justify-center gap-2 hover:bg-[#c77dff] hover:text-white transition-all shadow-lg hover:shadow-[#c77dff]/25"
+                    >
+                      Ver Evento <Ticket size={18} />
+                    </a>
+                  </div>
                 </div>
 
-                {/* Hover Action (Sutil) */}
+                {/* Hover Action Line */}
                 <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-[#7b2cbf] to-[#9d4edd] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
               </motion.div>
             ))}

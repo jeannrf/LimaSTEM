@@ -104,7 +104,7 @@ export default function Dashboard() {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
                   {/* Pick 1 */}
-                  <div className="bg-[#130725] border border-white/5 rounded-2xl p-5 hover:border-[#00f3ff]/30 transition-all group cursor-pointer relative overflow-hidden flex flex-col h-full">
+                  <Link href="/hackathones" className="bg-[#130725] border border-white/5 rounded-2xl p-5 hover:border-[#00f3ff]/30 transition-all group cursor-pointer relative overflow-hidden flex flex-col h-full">
                     <div className="w-10 h-10 rounded-lg bg-[#00f3ff]/10 flex items-center justify-center text-[#00f3ff] mb-4 shrink-0">
                       <Code2 size={20} />
                     </div>
@@ -114,10 +114,10 @@ export default function Dashboard() {
                     <div className="text-xs font-bold text-[#00f3ff] flex items-center gap-1 mt-auto">
                       Ver inscripción <ArrowRight size={12} />
                     </div>
-                  </div>
+                  </Link>
 
                   {/* Pick 2 */}
-                  <div className="bg-[#130725] border border-white/5 rounded-2xl p-5 hover:border-[#ffdd00]/30 transition-all group cursor-pointer relative overflow-hidden flex flex-col h-full">
+                  <Link href="/eventos" className="bg-[#130725] border border-white/5 rounded-2xl p-5 hover:border-[#ffdd00]/30 transition-all group cursor-pointer relative overflow-hidden flex flex-col h-full">
                     <div className="w-10 h-10 rounded-lg bg-[#ffdd00]/10 flex items-center justify-center text-[#ffdd00] mb-4 shrink-0">
                       <Trophy size={20} />
                     </div>
@@ -127,7 +127,7 @@ export default function Dashboard() {
                     <div className="text-xs font-bold text-[#ffdd00] flex items-center gap-1 mt-auto">
                       Más información <ArrowRight size={12} />
                     </div>
-                  </div>
+                  </Link>
                 </div>
               </div>
 

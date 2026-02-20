@@ -140,9 +140,14 @@ export default function BecasPage() {
                     </div>
                   </div>
 
-                  <button className="w-full h-12 rounded-xl bg-white text-black font-bold flex items-center justify-center gap-2 hover:bg-[#c77dff] hover:text-white transition-all shadow-lg hover:shadow-[#c77dff]/25 mt-2">
+                  <a
+                    href={beca.apply_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full h-12 rounded-xl bg-white text-black font-bold flex items-center justify-center gap-2 hover:bg-[#c77dff] hover:text-white transition-all shadow-lg hover:shadow-[#c77dff]/25 mt-2"
+                  >
                     Aplicar ahora <ExternalLink size={16} />
-                  </button>
+                  </a>
                 </div>
               </motion.div>
             ))}

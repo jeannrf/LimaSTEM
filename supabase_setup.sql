@@ -34,6 +34,7 @@ create table public.events (
   category text not null, -- 'Conferencia', 'Taller', 'Webinar'
   image_url text,
   is_featured boolean default false,
+  registration_link text,
   created_by uuid references public.profiles(id),
   created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
@@ -113,15 +114,15 @@ create trigger on_auth_user_created
   for each row execute procedure public.handle_new_user();
 
 -- 6. Insert some DUMMY DATA to start with
-insert into public.events (title, description, date, location, category, is_featured) values
-('IA Summit Lima 2026', 'El evento más grande de IA en Perú.', now() + interval '10 days', 'UTEC - Barranco', 'Conferencia', true),
-('Taller de React Avanzado', 'Aprende patrones de renderizado.', now() + interval '5 days', 'Virtual', 'Taller', false),
-('Networking para Devs', 'Conoce a otros desarrolladores.', now() + interval '2 days', 'Miraflores', 'Meetup', false);
+insert into public.events (title, description, date, location, category, is_featured, registration_link) values
+('IA Summit Lima 2026', 'El evento más grande de IA en Perú.', '2026-03-15 09:00:00', 'UTEC - Barranco', 'Conferencia', true, 'https://linkedin.com/events/ia-summit-lima-2026/'),
+('Taller de React Avanzado', 'Aprende patrones de renderizado.', '2026-03-20 18:30:00', 'Virtual', 'Taller', false, 'https://linkedin.com/events/taller-react-avanzado/'),
+('Networking para Devs', 'Conoce a otros desarrolladores.', '2026-03-05 19:00:00', 'Miraflores', 'Meetup', false, 'https://linkedin.com/events/networking-devs-lima/');
 
-insert into public.scholarships (title, organization, amount, deadline, category) values
-('Beca Generación Digital', 'Oracle', '100% Cobertura', now() + interval '30 days', 'Bootcamp'),
-('Beca Mujeres en Ciencia', 'Concytec', 'S/ 5,000 Mensuales', now() + interval '60 days', 'Maestría');
+insert into public.scholarships (title, organization, amount, deadline, category, apply_link) values
+('Beca Generación Digital', 'Oracle', '100% Cobertura', now() + interval '30 days', 'Bootcamp', 'https://www.oracle.com/education/generation-digital/'),
+('Beca Mujeres en Ciencia', 'Concytec', 'S/ 5,000 Mensuales', now() + interval '60 days', 'Maestría', 'https://portal.concytec.gob.pe/index.php/convocatorias/becas/');
 
-insert into public.hackathons (title, location, prize_pool, team_size) values
-('HackMIT Perú Edition', 'PUCP - San Miguel', '$5,000 USD', '3-5 personas'),
-('NASA Space Apps Lima', 'Virtual', 'Incubación', '2-6 personas');
+insert into public.hackathons (title, location, prize_pool, team_size, register_link) values
+('HackMIT Perú Edition', 'PUCP - San Miguel', '$5,000 USD', '3-5 personas', 'https://hackmit.org/apply'),
+('NASA Space Apps Lima', 'Virtual', 'Incubación', '2-6 personas', 'https://www.spaceappschallenge.org/2024/locations/lima/');
